@@ -1,3 +1,7 @@
+/*
+    @Author: Alexandre Fardin, Lilanio Costa e Alceu Felix
+*/
+
 public abstract class Pessoa {
     private String nome;
     private String email;

@@ -1,3 +1,7 @@
+/*
+    @Author: Alexandre Fardin, Lilanio Costa e Alceu Felix
+*/
+
 import java.util.Date;
 
 public class Nota {
