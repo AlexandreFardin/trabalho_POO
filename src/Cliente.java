@@ -2,13 +2,14 @@
     @Author: Alexandre Fardin, Lilanio Costa e Alceu Felix
 */
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Cliente extends Pessoa {
+
     private static List<Cliente> clientes = new ArrayList<>();
-    
+
     private String cpf;
     private List<Agendamento> agendamentos = new ArrayList<>();
     private List<Busca> buscas = new ArrayList<>();
@@ -17,15 +18,18 @@ public class Cliente extends Pessoa {
     public String getCpf() {
         return cpf;
     }
+
     public void setCpf(String cpf) throws Exception {
         if (cpf == null || cpf.length() != 11) {
             throw new Exception("CPF inválido. Deve conter 11 dígitos.");
         }
         this.cpf = cpf;
     }
+
     public List<Agendamento> getAgendamentos() {
         return agendamentos;
     }
+
     public List<Busca> getBuscas() {
         return buscas;
     }
@@ -44,7 +48,11 @@ public class Cliente extends Pessoa {
     }
 
     public List<ServicoProfissional> buscarServico(String filtro) {
-        Busca busca = new Busca(filtro, new Date(), this);
+        Busca busca = new Busca(
+                filtro,
+                LocalDateTime.now(),
+                this
+        );
         buscas.add(busca);
         return busca.executarBusca();
     }
@@ -53,12 +61,16 @@ public class Cliente extends Pessoa {
         if (agendamento == null) {
             throw new Exception("Agendamento não pode ser nulo.");
         }
+
         Profissional prof = agendamento.getProfissional();
-        
-        if (!prof.verificarDisponibilidade(agendamento.getDataHoraInicio(), agendamento.getDataHoraFim())) {
+
+        if (!prof.verificarDisponibilidade(
+                agendamento.getDataHoraInicio(),
+                agendamento.getDataHoraFim()
+        )) {
             throw new Exception("Horário não disponível para este profissional.");
         }
-        
+
         agendamentos.add(agendamento);
         prof.adicionarAgendamento(agendamento);
         return true;
@@ -71,16 +83,22 @@ public class Cliente extends Pessoa {
         agendamento.cancelar();
     }
 
-    public void remarcarHorario(Agendamento agendamento, Date novaDataInicio, Date novaDataFim) throws Exception {
+    public void remarcarHorario(
+            Agendamento agendamento,
+            LocalDateTime novaDataInicio,
+            LocalDateTime novaDataFim
+    ) throws Exception {
+
         if (agendamento == null || !agendamentos.contains(agendamento)) {
             throw new Exception("Agendamento não encontrado.");
         }
+
         Profissional prof = agendamento.getProfissional();
-        
+
         if (!prof.verificarDisponibilidade(novaDataInicio, novaDataFim)) {
             throw new Exception("Novo horário não disponível.");
         }
-        
+
         agendamento.remarcar(novaDataInicio, novaDataFim);
     }
 

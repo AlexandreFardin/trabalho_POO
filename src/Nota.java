@@ -2,12 +2,13 @@
     @Author: Alexandre Fardin, Lilanio Costa e Alceu Felix
 */
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Nota {
+
     private int pontuacao;
     private String comentario;
-    private Date data;
+    private LocalDate data;
     private Cliente cliente;
     private Profissional profissional;
 
@@ -15,45 +16,61 @@ public class Nota {
     public int getPontuacao() {
         return pontuacao;
     }
+
     public void setPontuacao(int pontuacao) throws Exception {
         if (pontuacao < 1 || pontuacao > 5) {
             throw new Exception("Pontuação deve estar entre 1 e 5.");
         }
         this.pontuacao = pontuacao;
     }
+
     public String getComentario() {
         return comentario;
     }
+
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-    public Date getData() {
+
+    public LocalDate getData() {
         return data;
     }
-    public void setData(Date data) {
+
+    public void setData(LocalDate data) {
         this.data = data;
     }
+
     public Cliente getCliente() {
         return cliente;
     }
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
     public Profissional getProfissional() {
         return profissional;
     }
+
     public void setProfissional(Profissional profissional) {
         this.profissional = profissional;
     }
 
 
-    public Nota(int pontuacao, String comentario, Date data, Cliente cliente, Profissional profissional) throws Exception {
+    public Nota(
+            int pontuacao,
+            String comentario,
+            LocalDate data,
+            Cliente cliente,
+            Profissional profissional
+    ) throws Exception {
+
         setPontuacao(pontuacao);
         setComentario(comentario);
         setData(data);
         setCliente(cliente);
         setProfissional(profissional);
-        
+
         if (profissional != null) {
             profissional.adicionarAvaliacao(this);
         }

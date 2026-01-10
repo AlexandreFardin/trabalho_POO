@@ -2,15 +2,16 @@
     @Author: Alexandre Fardin, Lilanio Costa e Alceu Felix
 */
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Profissional extends Pessoa {
+
     private static List<Profissional> profissionais = new ArrayList<>();
-    
+
     private String cnpj;
-    private List<Date> horariosDisponiveis = new ArrayList<>();
+    private List<LocalDateTime> horariosDisponiveis = new ArrayList<>();
     private List<Agendamento> agendamentos = new ArrayList<>();
     private List<ServicoProfissional> servicosPrestados = new ArrayList<>();
     private PoliticaCancelamento politicaCancelamento;
@@ -20,27 +21,34 @@ public class Profissional extends Pessoa {
     public String getCnpj() {
         return cnpj;
     }
+
     public void setCnpj(String cnpj) throws Exception {
         if (cnpj == null || cnpj.length() != 14) {
             throw new Exception("CNPJ inválido. Deve conter 14 dígitos.");
         }
         this.cnpj = cnpj;
     }
-    public List<Date> getHorariosDisponiveis() {
+
+    public List<LocalDateTime> getHorariosDisponiveis() {
         return horariosDisponiveis;
     }
+
     public List<Agendamento> getAgendamentos() {
         return agendamentos;
     }
+
     public List<ServicoProfissional> getServicosPrestados() {
         return servicosPrestados;
     }
+
     public PoliticaCancelamento getPoliticaCancelamento() {
         return politicaCancelamento;
     }
+
     public void setPoliticaCancelamento(PoliticaCancelamento politica) {
         this.politicaCancelamento = politica;
     }
+
     public List<Nota> getAvaliacoes() {
         return avaliacoes;
     }
@@ -52,11 +60,11 @@ public class Profissional extends Pessoa {
     }
 
 
-    public void definirHorarios(List<Date> horarios) {
+    public void definirHorarios(List<LocalDateTime> horarios) {
         this.horariosDisponiveis = new ArrayList<>(horarios);
     }
 
-    public void adicionarHorarioDisponivel(Date horario) {
+    public void adicionarHorarioDisponivel(LocalDateTime horario) {
         if (!horariosDisponiveis.contains(horario)) {
             horariosDisponiveis.add(horario);
         }
@@ -74,10 +82,12 @@ public class Profissional extends Pessoa {
         }
     }
 
-    public boolean verificarDisponibilidade(Date inicio, Date fim) {
+    public boolean verificarDisponibilidade(LocalDateTime inicio, LocalDateTime fim) {
         for (Agendamento ag : agendamentos) {
             if (ag.getStatus().equals("CONFIRMADO") || ag.getStatus().equals("PENDENTE")) {
-                if (inicio.before(ag.getDataHoraFim()) && fim.after(ag.getDataHoraInicio())) {
+
+                if (inicio.isBefore(ag.getDataHoraFim()) &&
+                    fim.isAfter(ag.getDataHoraInicio())) {
                     return false;
                 }
             }

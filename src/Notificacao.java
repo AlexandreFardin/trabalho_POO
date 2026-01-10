@@ -2,12 +2,13 @@
     @Author: Alexandre Fardin, Lilanio Costa e Alceu Felix
 */
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Notificacao {
+
     private String tipo;
     private String mensagem;
-    private Date dataEnvio;
+    private LocalDateTime dataEnvio;
     private Agendamento agendamento;
     private boolean enviada;
 
@@ -15,33 +16,46 @@ public class Notificacao {
     public String getTipo() {
         return tipo;
     }
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
     public String getMensagem() {
         return mensagem;
     }
+
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
-    public Date getDataEnvio() {
+
+    public LocalDateTime getDataEnvio() {
         return dataEnvio;
     }
-    public void setDataEnvio(Date dataEnvio) {
+
+    public void setDataEnvio(LocalDateTime dataEnvio) {
         this.dataEnvio = dataEnvio;
     }
+
     public Agendamento getAgendamento() {
         return agendamento;
     }
+
     public void setAgendamento(Agendamento agendamento) {
         this.agendamento = agendamento;
     }
+
     public boolean isEnviada() {
         return enviada;
     }
 
 
-    public Notificacao(String tipo, String mensagem, Date dataEnvio, Agendamento agendamento) {
+    public Notificacao(
+            String tipo,
+            String mensagem,
+            LocalDateTime dataEnvio,
+            Agendamento agendamento
+    ) {
         setTipo(tipo);
         setMensagem(mensagem);
         setDataEnvio(dataEnvio);

@@ -2,14 +2,15 @@
     @Author: Alexandre Fardin, Lilanio Costa e Alceu Felix
 */
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 public class Busca {
+
     private String filtro;
-    private Date dataBusca;
+    private LocalDateTime dataBusca;
     private Cliente cliente;
     private List<ServicoProfissional> resultados = new ArrayList<>();
 
@@ -17,27 +18,33 @@ public class Busca {
     public String getFiltro() {
         return filtro;
     }
+
     public void setFiltro(String filtro) {
         this.filtro = filtro;
     }
-    public Date getDataBusca() {
+
+    public LocalDateTime getDataBusca() {
         return dataBusca;
     }
-    public void setDataBusca(Date dataBusca) {
+
+    public void setDataBusca(LocalDateTime dataBusca) {
         this.dataBusca = dataBusca;
     }
+
     public Cliente getCliente() {
         return cliente;
     }
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
     public List<ServicoProfissional> getResultados() {
         return resultados;
     }
 
 
-    public Busca(String filtro, Date dataBusca, Cliente cliente) {
+    public Busca(String filtro, LocalDateTime dataBusca, Cliente cliente) {
         setFiltro(filtro);
         setDataBusca(dataBusca);
         setCliente(cliente);
@@ -70,7 +77,7 @@ public class Busca {
                descricao.contains(filtroLower);
     }
 
-    // retorna profissionais ordenados por avaliacao
+    // Retorna profissionais ordenados por avaliação
     public List<Profissional> getRecomendacoes(Servico servico) {
         List<Profissional> recomendados = new ArrayList<>();
         List<ServicoProfissional> servicosProfissionais = ServicoProfissional.buscarPorServico(servico);

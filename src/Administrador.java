@@ -2,18 +2,17 @@
     @Author: Alexandre Fardin, Lilanio Costa e Alceu Felix
 */
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Administrador extends Pessoa {
-    private static List<Date> feriados = new ArrayList<>();
 
+    private static List<LocalDate> feriados = new ArrayList<>();
 
     public Administrador(String nome, String email, String telefone, String senha) throws Exception {
         super(nome, email, telefone, senha);
     }
-
 
     public void gerenciarServico(Servico servico, String acao) throws Exception {
         if (servico == null) {
@@ -45,7 +44,7 @@ public class Administrador extends Pessoa {
         prof.setPoliticaCancelamento(politica);
     }
 
-    public void adicionarFeriado(Date data) throws Exception {
+    public void adicionarFeriado(LocalDate data) throws Exception {
         if (data == null) {
             throw new Exception("Data do feriado não pode ser nula.");
         }
@@ -54,27 +53,16 @@ public class Administrador extends Pessoa {
         }
     }
 
-    public void removerFeriado(Date data) {
+    public void removerFeriado(LocalDate data) {
         feriados.remove(data);
     }
 
-    public static List<Date> getFeriados() {
+    public static List<LocalDate> getFeriados() {
         return feriados;
     }
 
-    public static boolean isFeriado(Date data) {
-        for (Date feriado : feriados) {
-            if (mesmaData(feriado, data)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean mesmaData(Date d1, Date d2) {
-        return d1.getYear() == d2.getYear() && 
-               d1.getMonth() == d2.getMonth() && 
-               d1.getDate() == d2.getDate();
+    public static boolean isFeriado(LocalDate data) {
+        return feriados.contains(data);
     }
 
     @Override
