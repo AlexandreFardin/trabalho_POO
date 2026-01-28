@@ -9,7 +9,8 @@ import java.util.List;
 public class Administrador extends Pessoa {
 
     private static List<LocalDate> feriados = new ArrayList<>();
-
+     private static List<Administrador> administradores = new ArrayList<>();
+    
     public Administrador(String nome, String email, String telefone, String senha) throws Exception {
         super(nome, email, telefone, senha);
     }
@@ -71,5 +72,15 @@ public class Administrador extends Pessoa {
                 "nome='" + getNome() + '\'' +
                 ", email='" + getEmail() + '\'' +
                 '}';
+    }
+
+     public static List<Administrador> getAdministradores() {
+        return administradores;
+    }
+
+     public void cadastrarAdministrador() {
+        if (!administradores.contains(this)) {
+            administradores.add(this);
+        }
     }
 }
